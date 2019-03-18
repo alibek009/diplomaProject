@@ -2,7 +2,7 @@
 @section('title', $course->title)
 @section('main')
 
-    <div class="container" >
+    <div class="container" style="margin-top: 40px;margin-bottom: 40px;">
             <h2>{{ $course-> title }} </h2>
             <p>{{$course-> description}}</p>
 

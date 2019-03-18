@@ -20,6 +20,8 @@ class HomeController extends Controller
         }
         $courses =Course::where('published',1)->orderBy('id','desc')->get();
         $grades = Course::select('grade')->whereNotNull('grade')->groupBy('grade')->get();
+
         return view('index',compact('courses','purchased_courses','grades'));
     }
+
 }

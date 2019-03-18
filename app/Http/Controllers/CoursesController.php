@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB;
 use App\Course;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
@@ -29,7 +29,15 @@ class CoursesController extends Controller
     public function grades($grade){
         $courses = Course::where('grade',$grade)->with('publishedLessons')->firstOrFail();
         $grades = Course::select('grade')->whereNotNull('grade')->groupBy('grade')->get();
-        return view('course',compact('courses','grades'));
+        return view('grades',compact('courses','grades'));
+    }
+
+    public function search(Request $request){
+       $search = $request->get('search');
+
+        $grades = Course::select('grade')->whereNotNull('grade')->groupBy('grade')->get();
+       $courses = Course::where('title','like','%'.$search.'%')->get();
+       return view('search',compact('courses','grades'));
     }
 
 
@@ -38,6 +46,7 @@ class CoursesController extends Controller
         $this->createStripeCharge($request);
 
         $course->students()->attach(\Auth::id());
+
 
         return redirect()->back->with('success','Payment completed successfully');
     }

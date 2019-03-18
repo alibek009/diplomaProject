@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Lesson;
 use App\Videos;
+use App\Course;
 use App\Question;
 use App\QuestionsOption;
 use App\TestsResult;
@@ -16,6 +17,7 @@ class LessonsController extends Controller
     public function show($course_id,$lesson_slug){
         $lesson = Lesson::where('slug',$lesson_slug)->where('course_id',$course_id)->firstOrFail();
 
+        $grades = Course::select('grade')->whereNotNull('grade')->groupBy('grade')->get();
 
         if(\Auth::check())
         {
@@ -46,7 +48,7 @@ class LessonsController extends Controller
         }
 
         $purchased_course = $lesson->course->students()->where('user_id',\Auth::id())->count()>0;
-        return view('lesson',compact('lesson','previous_lesson','next_lesson','test_result','purchased_course','test_exists'));
+        return view('lesson',compact('lesson','previous_lesson','next_lesson','test_result','purchased_course','test_exists','grades'));
 
         }
 

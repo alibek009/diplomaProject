@@ -1,7 +1,7 @@
 @extends('layouts.home')
 @section('title', $lesson-> title )
 @section('sidebar')
-    <div class="container" style="margin-top: 50px;">
+    <div class="container" style="margin-top: 50px;margin-left: -50px;">
     <h4 class="my-2">{{ $lesson->course->title }}</h4>
     <div class="list-group">
         @foreach ($lesson->course->publishedLessons as $list_lesson)
@@ -12,7 +12,7 @@
     </div>
 @endsection
 @section('main')
-    <div class="container" style="margin-top: 50px;">
+    <div class="container" style="margin-top: 40px;margin-bottom: 40px;">
         <div class="row">
     <h2>{{ $lesson-> title }} </h2>
         </div>

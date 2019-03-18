@@ -8,7 +8,11 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>@yield('title')</title>
+  <title>
+    @yield('title')
+  </title>
+
+  <link rel="icon" href="https://cdn1.iconfinder.com/data/icons/color-bold-style/21/34-128.png"  type = "image/x-icon" />
 
   <!-- Bootstrap core CSS -->
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -26,30 +30,40 @@
 <body>
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" >
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" >
     <div class="container">
       <div class="row">
         <div class="col-lg-8">
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item ">
+          <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
                 <a class="navbar-brand" href="/">Okymin
                 </a>
               </li>
-              <li class="nav-item ">
-                  <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Grades
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      @foreach($grades as $grade )
-                      <a class="dropdown-item" href="{{ route('courses.grades',$grade->grade) }}">{{ $grade->grade }}</a>
-                        @endforeach
-                    </div>
-                  </div>
+
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Grades</a>
+                <div class="dropdown-menu">
+                  @foreach($grades as $grade )
+                  <a class="dropdown-item" href="{{ route('courses.grades',$grade->grade) }}">{{ $grade->grade }}</a>
+                @endforeach
               </li>
+
+
+
+
               <li class="nav-item">
-                <a class="nav-link" href="#">Contacts</a>
+                <form action="/search" method="get" class="form-inline my-2 my-lg-0" style="height: 35px;width: 250px;margin-left: 40px; margin-top: 4px; ">
+                    <div class="input-group" >
+                      <input type="search" name="search" class="form-control" style=" height: 35px;margin-top: 2px;">
+                      <span class="input-group-prepend">
+                        <button class="btn btn-secondary " type="submit" style=" height: 37px; border-radius: 4px; margin-top: 1px;" >
+                          <i class="fa fa-search" style="color: black; "></i>
+                        </button>
+                      </span>
+                    </div>
+                </form>
               </li>
             </ul>
           </div>
@@ -61,39 +75,39 @@
 
           @if (Auth::check())
 
+              <button id="btnGroupDrop1" type="button" class="btn btn-primary " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-right: 150px;"> {{ Auth::user()->name }} </button>
+              <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                <form action="{{ route('auth.logout') }}" method="post" >
 
-            <form action="{{ route('auth.logout') }}" method="post">
+                  {{ csrf_field() }}
+                      @if(!Auth::user()->isStudent())
+                        <a class="dropdown-item" href="#" style="text-align:center; color:black;" >{{ Auth::user()->name }}</a>
+                      @else
+                        <a class="dropdown-item" href="/admin/home" style="text-align:center; color:black;" >{{ Auth::user()->name }}</a>
+                      @endif
 
-              {{ csrf_field() }}
-              <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                @if(!\Auth::user()->isStudent())
-                <a class="navbar-brand text-right" href="#" >{{ Auth::user()->name }}</a>
-                  @else
-                <a class="navbar-brand text-right" href="/admin/home" >{{ Auth::user()->name }}</a>
-                @endif
-              </li>
-              <li class="nav-item">
-              <input type="submit" value="Logout" class="btn btn-danger" style="height: 30px; margin-top: 6px; text-align: center;">
-              </li>
-              </ul>
-            </form>
+                      <input type="submit" value="Logout" class="dropdown-item" style=" text-align: center; color:black;">
+
+                </form>
+              </div>
+
           @else
 
-            <form action="{{ route('auth.login') }}" method="post">
-              {{ csrf_field() }}
-              <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-              <input type="email" name="email" placeholder="Email" style="border: 2px solid darkgrey;border-radius: 4px; margin-right: 4px;" />
-                </li>
-                <li class="nav-item">
-              <input type="password" name="password" placeholder="Password" style="border: 2px solid darkgrey;border-radius: 4px;margin-right: 4px;"/>
-                </li>
-                <li class="nav-item">
-              <input type="submit" value="Login" class="btn btn-info" style="height: 30px; padding-top: 3px; margin-bottom: 2px;">
-                </li>
-              </ul>
-            </form>
+              <button id="btnGroupDrop1" type="button" class="btn btn-primary " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-right: 150px;"> Login </button>
+              <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px); width: 250px;">
+                <form action="{{ route('auth.login') }}" method="post">
+                  {{ csrf_field() }}
+                      <input class="dropdown-item" type="email" name="email" placeholder="Email" style=" border: 2px ;border-radius: 4px;background-color: #c7d9ff; height: 35px;" />
+                  <br>
+                      <input class="dropdown-item" type="password" name="password" placeholder="Password" style="border: 2px ;border-radius: 4px;background-color: #c7d9ff; height: 35px;"/>
+                  <br>
+                      <input class="dropdown-item" type="submit" value="Login" class="btn btn-info" style=" padding-top: 3px; height: 35px; text-align: center;">
+
+
+                </form>
+              </div>
+
+
           @endif
         </div>
       </div>
@@ -128,23 +142,21 @@
       </div>
       <!-- /.col-lg-9 -->
 
-    </div>
+
     <!-- /.row -->
 
-  </div>
+
   <!-- /.container -->
 
   <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright 2019 &copy; Alibek Amangeldiyev | Kuanysh Yerezhep | Zhumabay Rauan </p>
-    </div>
-    <!-- /.container -->
-  </footer>
+
 
   <!-- Bootstrap core JavaScript -->
   <script src="/vendor/jquery/jquery.min.js"></script>
+
   <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 
 </body>
 

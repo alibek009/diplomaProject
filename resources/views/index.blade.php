@@ -4,7 +4,7 @@
 
 
       <!-- /.col-lg-3 -->
-  <div class="container" style="margin-left: -100px;">
+  <div class="container" style="margin-left: -150px;margin-top: 50px;">
 
 
 
@@ -28,7 +28,12 @@
                   <div class="card-footer">
                     <p>Progress: {{ Auth::user()->lessons()->where('course_id',$course->id)->count() }}
                       of {{ $course->lessons->count() }} lessons</p>
+
+                      <div class="progress">
+                          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{round(( Auth::user()->lessons()->where('course_id',$course->id)->count()) / ($course->lessons->count())*100) }}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
                   </div>
+
                 </div>
               </div>
 
@@ -43,7 +48,7 @@
           @foreach($courses as $course)
 
           <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
+            <div class="card h-100" >
               <a href="{{ route('courses.show', [$course->slug]) }}">
                 <img class="card-img-top" src="{{ $course->course_image }}" alt=""></a>
               <div class="card-body">
@@ -74,4 +79,5 @@
           @endforeach
         </div>
   </div>
+
 @endsection
