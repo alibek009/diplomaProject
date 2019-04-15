@@ -10,7 +10,7 @@
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
                 <a href="{{ url('/') }}">
                     <i class="fa fa-wrench"></i>
-                    <span class="title">@lang('quickadmin.qa_dashboard')</span>
+                    <span class="title">Okimyn Dashboard</span>
                 </a>
             </li>
 

@@ -9,7 +9,7 @@
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg">
 
-           @lang('quickadmin.quickadmin_title')</span>
+           Okimyn</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">

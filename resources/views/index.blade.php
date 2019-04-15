@@ -1,27 +1,36 @@
 @extends('layouts.home')
 @section('title', 'Okymin')
+@section('sidebar')
+
+    <div class="container" style="margin-top: 50px;">
+        <h4 class="my-2">Subjects</h4>
+        <div class="list-group">
+            <input type="submit" name="grade" value="Math" class="dropdown-item" href="/">
+        </div>
+    </div>
+@endsection
 @section('main')
 
 
       <!-- /.col-lg-3 -->
-  <div class="container" style="margin-left: -150px;margin-top: 50px;">
+  <div class="container" style="margin-top: 50px;">
 
 
 
         @if(!is_null($purchased_courses))
 
           <h3>My courses</h3>
-          <div class="row">
+          <div class="row" id="dat">
 
             @foreach($purchased_courses as $course)
 
               <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                  <a href="{{ route('courses.show', [$course->slug]) }}">
-                    <img class="card-img-top" src="{{ $course->course_image }}" alt="" ></a>
+                <div class="card h-100 border-dark">
+                  <a href="{{ route('courses.show', [$course->slug]) }}" >
+                    <img class="card-img-top" src="{{ $course->course_image }}" alt="" style="height: 110px;" ></a>
                   <div class="card-body">
                     <h4 class="card-title">
-                      <a href="{{ route('courses.show', [$course->slug]) }}">{{ $course -> title }}</a>
+                      <a href="{{ route('courses.show', [$course->slug]) }}" style="text-decoration: none;">{{ $course -> title }}</a>
                     </h4>
                     <p class="card-text">{{ $course -> description }}</p>
                   </div>
@@ -44,16 +53,16 @@
 
 
         <h3>All courses</h3>
-        <div class="row">
+        <div class="row" id="table_data">
           @foreach($courses as $course)
 
           <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100" >
+            <div class="card h-100 border-dark" >
               <a href="{{ route('courses.show', [$course->slug]) }}">
                 <img class="card-img-top" src="{{ $course->course_image }}" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="{{ route('courses.show', [$course->slug]) }}">{{ $course -> title }}</a>
+                  <a href="{{ route('courses.show', [$course->slug]) }}" style="text-decoration: none;">{{ $course -> title }}</a>
                 </h4>
                 <h5>{{ $course -> price }} KZT </h5>
                 <p class="card-text">{{ $course -> description }}</p>
@@ -77,7 +86,33 @@
             </div>
           </div>
           @endforeach
-        </div>
-  </div>
 
+        </div>
+            {!! $courses->links() !!}
+
+      <script>
+          $(document).ready(function(){
+
+              $(document).on('click', '.pagination a', function(event){
+                  event.preventDefault();
+                  var page = $(this).attr('href').split('page=')[1];
+                  fetch_data(page);
+              });
+
+              function fetch_data(page)
+              {
+                  $.ajax({
+                      url:"/?page="+page,
+                      success:function(data)
+                      {
+                          $('.row').html(data);
+                      }
+                  });
+              }
+
+          });
+      </script>
+            <div class="container">
+                <span class="text-muted">© Alibek Amangeldiyev,Kuanysh Yerezhep,Rauan Zhumabay</span>
+            </div>
 @endsection

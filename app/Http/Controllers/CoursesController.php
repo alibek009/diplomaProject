@@ -26,10 +26,22 @@ class CoursesController extends Controller
         return view('course',compact('course','purchased_courses','grades'));
     }
 
-    public function grades($grade){
-        $courses = Course::where('grade',$grade)->with('publishedLessons')->firstOrFail();
+    public function grades(Request $request){
+        $search = $request->get('grade');
+
         $grades = Course::select('grade')->whereNotNull('grade')->groupBy('grade')->get();
-        return view('grades',compact('courses','grades'));
+
+        $courses = Course::where('grade',$search)->where('published',1)->get();
+        return view('grades',compact('courses','grades','search'));
+    }
+
+    public function subjects(Request $request){
+        $search = $request->get('grade');
+
+        $grades = Course::select('grade')->whereNotNull('grade')->groupBy('grade')->get();
+
+        $courses = Course::where('grade',$search)->where('published',1)->get();
+        return view('grades',compact('courses','grades','search'));
     }
 
     public function search(Request $request){

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Lesson;
+use App\Test;
 use App\Videos;
 use App\Course;
 use App\Question;
@@ -40,21 +41,20 @@ class LessonsController extends Controller
             ->where('position','>',$lesson->position)
             ->orderBy('position','asc')
             ->first();
-
         $test_exists =FALSE;
         if($lesson->test && $lesson->test->questions){
             $test_exists =TRUE;
-
         }
 
         $purchased_course = $lesson->course->students()->where('user_id',\Auth::id())->count()>0;
-        return view('lesson',compact('lesson','previous_lesson','next_lesson','test_result','purchased_course','test_exists','grades'));
+        return view('lesson',compact('lesson','previous_lesson','next_lesson','test_result','purchased_course','test_exists','grades'))->render();
 
         }
 
     public function test($lesson_slug, Request $request)
     {
         $lesson = Lesson::where('slug', $lesson_slug)->firstOrFail();
+
         $answers = [];
         $test_score = 0;
         foreach ($request->get('questions') as $question_id => $answer_id) {
@@ -79,6 +79,7 @@ class LessonsController extends Controller
         ]);
         $test_result->answers()->createMany($answers);
         return redirect()->route('lessons.show',  [$lesson->course_id,$lesson_slug])->with('message', 'Test score: ' . $test_score);
+
     }
 
 
