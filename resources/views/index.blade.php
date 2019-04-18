@@ -112,6 +112,7 @@
 
           });
       </script>
+  </div>
             <div class="container">
                 <span class="text-muted">© Alibek Amangeldiyev,Kuanysh Yerezhep,Rauan Zhumabay</span>
             </div>

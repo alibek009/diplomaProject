@@ -17,6 +17,9 @@ Route::get('lesson/{course_id}/{slug}',['uses'=> 'LessonsController@show','as'=>
 Route::get('lesson/{course_id}/{slug}/test',['uses'=> 'TestController@show','as'=>'tests.show']);
 Route::post('lesson/{slug}/test',['uses'=> 'TestController@test','as'=>'tests.test']);
 
+//Certificate
+Route::get('course/{slug}/certificate',['uses'=>'CertificateController@show','as'=>'certificate.show']);
+Route::get('course/{id}/pdf',['uses'=>'CertificateController@pdf','as'=>'certificate.pdf']);
 
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');

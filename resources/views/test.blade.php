@@ -19,6 +19,8 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
 
+
+
             @if($test_exists)
 
 
@@ -27,9 +29,10 @@
 
 
                     <h3>Test: {{ $lesson->test->title }}</h3>
+
                     @if (!is_null($test_result))
                         <br>
-                        <div class="alert alert-info">Your test score is {{ $test_result->test_results }}</div>
+                        <div class="alert alert-info">Your test score is {{ $test_result->test_results }} out of {{ $max_result }}</div>
                         <br>
 
                         @foreach($lesson->test->questions as $question)
@@ -79,7 +82,9 @@
             @endif
         <br>
         <p><a href="{{ route('lessons.show',[$lesson->course_id,$lesson->slug]) }}" style="text-decoration: none;"> Back to the lesson <b>( {{$lesson->title}})</b>  </a></p>
+        @if($required > $max_result/2 and  Auth::user()->lessons()->where('course_id',$course->id)->count() == $course->lessons->count())
+            <h2><a href="{{ route('certificate.pdf',[$course->id])}}">Certificate</a></h2>
 
-
+            @endif
     </div>
 @endsection

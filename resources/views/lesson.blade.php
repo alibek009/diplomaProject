@@ -35,9 +35,9 @@
 
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-
+        @if($test_exists)
         <h3><a href="{{route('tests.show',[$lesson->course_id,$lesson->slug])}}" style="text-decoration: none;">Check yourself via TEST</a></h3>
-
+    @endif
 
 
 

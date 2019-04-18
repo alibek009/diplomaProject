@@ -18,6 +18,7 @@ class TestController extends Controller
     public function show($course_id,$lesson_slug){
         $lesson = Lesson::where('slug',$lesson_slug)->where('course_id',$course_id)->firstOrFail();
 
+        $course =Course::where('published',1)->orderBy('id','desc')->firstOrFail();
         $grades = Course::select('grade')->whereNotNull('grade')->groupBy('grade')->get();
 
 
@@ -27,32 +28,36 @@ class TestController extends Controller
                 $lesson->students()->attach(\Auth::id());
             }
         }
-
         $test_result= NULL;
+        $max_result = 0;
+        $required = 0;
         if($lesson->test){
             $test_result = TestsResult::where('test_id',$lesson->test->id)
                 ->where('user_id',\Auth::id())
                 ->first();
+
         }
 
         $test_exists =FALSE;
         if($lesson->test && $lesson->test->questions){
             $test_exists =TRUE;
+            $max_result = $lesson->test->questions->count();
+            $required = $test_result->test_results;
         }
 
         $purchased_course = $lesson->course->students()->where('user_id',\Auth::id())->count()>0;
-        return view('test',compact('lesson','test_result','purchased_course','test_exists','grades'))->render();
+        return view('test',compact('lesson','test_result','purchased_course','max_result','required','test_exists','grades','course'))->render();
 
         }
 
     public function test($lesson_slug, Request $request)
     {
         $lesson = Lesson::where('slug', $lesson_slug)->firstOrFail();
-
         $answers = [];
         $test_score = 0;
         foreach ($request->get('questions') as $question_id => $answer_id) {
             $question = Question::find($question_id);
+
             $correct = QuestionsOption::where('question_id', $question_id)
                     ->where('id', $answer_id)
                     ->where('correct', 1)->count() > 0;
@@ -72,7 +77,7 @@ class TestController extends Controller
             'test_results' => $test_score
         ]);
         $test_result->answers()->createMany($answers);
-        return redirect()->route('tests.show',  [$lesson->course_id,$lesson_slug])->with('message', 'Test score: ' . $test_score);
+        return redirect()->route('tests.show',  [$lesson->course_id,$lesson_slug])->with('message', 'Test score: ' . $test_score . ' '.$max_result);
 
     }
 
