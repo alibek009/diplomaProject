@@ -86,26 +86,14 @@
                 </div>
             </div>
 
+
+            {!! Form::open(['url' => 'admin/lessons/create', 'method' => 'POST',
+                                       'enctype' => 'multipart/form-data', 'class' => 'form-horizontal']) !!}
+            {{csrf_field()}}
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('downloadable_files', trans('quickadmin.lessons.fields.downloadable-files').'', ['class' => 'control-label']) !!}
-                    {!! Form::file('downloadable_files[]', [
-                        'multiple',
-                        'class' => 'form-control file-upload',
-                        'data-url' => route('admin.media.upload'),
-                        'data-bucket' => 'downloadable_files',
-                        'data-filekey' => 'downloadable_files',
-                        ]) !!}
-                    <p class="help-block"></p>
-                    <div class="photo-block">
-                        <div class="progress-bar form-group">&nbsp;</div>
-                        <div class="files-list"></div>
-                    </div>
-                    @if($errors->has('downloadable_files'))
-                        <p class="help-block">
-                            {{ $errors->first('downloadable_files') }}
-                        </p>
-                    @endif
+                    <label for="video">Video (mp4, mov, avi, wmv)</label>
+                    <input type="file" class="form-control" id="video" name="video">
                 </div>
             </div>
             <div class="row">

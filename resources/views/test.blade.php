@@ -2,12 +2,30 @@
 @section('title', $lesson-> title )
 @section('sidebar')
     <div class="container" style="margin-top: 50px;">
-        <h4 class="my-2">{{ $lesson->course->title }}</h4>
+        <h4 class="my-2">Your progress</h4>
         <div class="list-group">
-            @foreach ($lesson->course->publishedLessons as $list_lesson)
-                <a href="{{ route('lessons.show',[$list_lesson->course_id,$list_lesson->slug]) }}" class="list-group-item"
-                   @if ($list_lesson->id == $lesson->id) style="font-weight: bold;" @endif> {{$loop->iteration}}.{{ $list_lesson->title }} </a>
-            @endforeach
+            @if (!is_null($test_result))
+                @foreach ($lesson->course->publishedLessons as $list_lesson)
+                    @if($list_lesson->test != NULL)
+                        @foreach($all_results as $res)
+                            @if($list_lesson->test->id == $res->test_id)
+                                @if($res->test_results < $list_lesson->test->questions->count())
+                                    <a href="{{ route('tests.show',[$list_lesson->course_id,$list_lesson->slug]) }}"
+                                       class="list-group-item">
+
+                                        {{$list_lesson->title}} - <b style="font-size: 1em; color: #1745ff;">{{round($res->test_results/ $list_lesson->test->questions->count() * 100,2)}} %</b></a>
+                                        @else
+                                    <a href="{{ route('tests.show',[$list_lesson->course_id,$list_lesson->slug]) }}"
+                                       class="list-group-item">
+                                            {{$list_lesson->title}} - <b style="font-size: 1em; color: #1745ff;">100 % </b></a>
+
+                            @endif
+
+                            @endif
+                        @endforeach
+                    @endif
+                @endforeach
+                @endif
         </div>
     </div>
 @endsection
@@ -20,8 +38,7 @@
 
 
 
-
-            @if($test_exists)
+        @if($test_exists)
 
 
                 <form action="{{ route('tests.test',[$lesson->slug]) }}" method="post">
@@ -32,9 +49,13 @@
 
                     @if (!is_null($test_result))
                         <br>
-                        <div class="alert alert-info">Your test score is {{ $test_result->test_results }} out of {{ $max_result }}</div>
+                        @if( $test_result->test_results < $max_result)
+                        <div class="alert alert-info">Your test score is {{ round($test_result->test_results/$max_result * 100,2) }} % </div>
                         <br>
-
+                        @else
+                            <div class="alert alert-info">Your test score is 100 % </div>
+                            <br>
+                            @endif
                         @foreach($lesson->test->questions as $question)
 
                             <b>{{ $loop->iteration }}. {{$question->question}}</b>
@@ -53,6 +74,17 @@
                             @endforeach
 
 
+                        @endforeach
+
+
+
+                                @foreach($purchased_course as $c)
+                            @if($test_result->test_results >= ($max_result/2) and (\Auth::user()->lessons()->where('course_id',$c->id)->count() == $c->lessons->count()))
+
+                                <h2><a href="{{ route('certificate.pdf',[$lesson->course_id])}}">Certificate</a>
+
+                                </h2>
+                                @endif
                         @endforeach
                     @else
 
@@ -79,12 +111,14 @@
 
 
 
-            @endif
+
         <br>
         <p><a href="{{ route('lessons.show',[$lesson->course_id,$lesson->slug]) }}" style="text-decoration: none;"> Back to the lesson <b>( {{$lesson->title}})</b>  </a></p>
-        @if($required > $max_result/2 and  Auth::user()->lessons()->where('course_id',$course->id)->count() == $course->lessons->count())
-            <h2><a href="{{ route('certificate.pdf',[$course->id])}}">Certificate</a></h2>
 
-            @endif
+
+
+        @endif
+
+
     </div>
 @endsection

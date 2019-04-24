@@ -17,6 +17,7 @@ class LessonsController extends Controller
 {
     public function show($course_id,$lesson_slug){
         $lesson = Lesson::where('slug',$lesson_slug)->where('course_id',$course_id)->firstOrFail();
+        $course = Course::where('id',$course_id)->with('publishedLessons')->firstOrFail();
 
         $grades = Course::select('grade')->whereNotNull('grade')->groupBy('grade')->get();
 
@@ -47,7 +48,7 @@ class LessonsController extends Controller
         }
 
         $purchased_course = $lesson->course->students()->where('user_id',\Auth::id())->count()>0;
-        return view('lesson',compact('lesson','previous_lesson','next_lesson','test_result','purchased_course','test_exists','grades'))->render();
+        return view('lesson',compact('lesson','course','previous_lesson','next_lesson','test_result','purchased_course','test_exists','grades'))->render();
 
         }
 

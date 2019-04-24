@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Course;
 use App\Lesson;
+use Session;
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
@@ -70,19 +72,37 @@ class LessonsController extends Controller
         if (! Gate::allows('lesson_create')) {
             return abort(401);
         }
+
         $request = $this->saveFiles($request);
         $lesson = Lesson::create($request->all() + ['position' =>Lesson::where('course_id',$request->course_id)->max('position') + 1]);
 
+        $data = $request->all();
 
-        foreach ($request->input('downloadable_files_id', []) as $index => $id) {
-            $model          = config('medialibrary.media_model');
-            $file           = $model::find($id);
-            $file->model_id = $lesson->id;
-            $file->save();
+        $rules = [
+            'title' => 'required',
+            'lesson_image' => 'file|mimes:jpg,jpeg,png',
+            'slug' => 'required',
+            'video' => 'file|mimes:mp4,mov,avi,wmv',
+            'full_text' => 'required',
+        ];
+        $validator = Validator::make($data, $rules);
+        if ($validator->fails()) {
+            return redirect()->route('admin.lessons.index', ['course_id' => $request->course_id]);
+        }else {
+            $lessonPart = new Lesson();
+
+            if ($request->video) {
+                $video = $request->video;
+                $video_new_name = time() . $video->getClientOriginalName();
+                $videoFullPath = $video->move('assets/files/lessons/videos', $video_new_name);
+                $lessonPart->video = $videoFullPath;
+            }
+            $lessonPart->save();
+            Session::flash('success', ['title' => trans('messages.insert'), 'body' => trans('messages.insert_success')]);
+
+
+            return redirect()->route('admin.lessons.index', ['course_id' => $request->course_id]);
         }
-
-
-        return redirect()->route('admin.lessons.index',['course_id'=>$request->course_id]);
     }
 
 
@@ -114,7 +134,7 @@ class LessonsController extends Controller
      */
     public function update(UpdateLessonsRequest $request, $id)
     {
-        if (! Gate::allows('lesson_edit')) {
+        if (!Gate::allows('lesson_edit')) {
             return abort(401);
         }
         $request = $this->saveFiles($request);
@@ -122,20 +142,31 @@ class LessonsController extends Controller
         $lesson->update($request->all());
 
 
-        $media = [];
-        foreach ($request->input('downloadable_files_id', []) as $index => $id) {
-            $model          = config('medialibrary.media_model');
-            $file           = $model::find($id);
-            $file->model_id = $lesson->id;
-            $file->save();
-            $media[] = $file->toArray();
+        $data = $request->all();
+        $rules = [
+            'video' => 'file|mimes:mp4,mov,avi,wmv',
+        ];
+        $validator = Validator::make($data, $rules);
+        if ($validator->fails()) {
+            return redirect()->route('admin.lessons.index', ['course_id' => $request->course_id]);
+        } else {
+            $lessonPart = LessonPart::findOrFail($id);
+            if ($lessonPart->video) {
+                if (file_exists($lessonPart->video)) {
+                    unlink($lessonPart->video);
+                }
+            }
+            if ($request->video) {
+                $video = $request->video;
+                $video_new_name = time() . $video->getClientOriginalName();
+                $videoFullPath = $video->move('assets/files/lessons/videos', $video_new_name);
+                $lessonPart->video = $videoFullPath;
+            }
+            $lessonPart->save();
+            Session::flash('success', ['title' => trans('messages.update'), 'body' => trans('messages.update_success')]);
+            return redirect()->route('admin.lessons.index', ['course_id' => $request->course_id]);
         }
-        $lesson->updateMedia($media, 'downloadable_files');
-
-
-        return redirect()->route('admin.lessons.index',['course_id'=>$request->course_id]);
     }
-
 
     /**
      * Display Lesson.

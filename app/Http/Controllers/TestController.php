@@ -30,23 +30,28 @@ class TestController extends Controller
         }
         $test_result= NULL;
         $max_result = 0;
-        $required = 0;
         if($lesson->test){
             $test_result = TestsResult::where('test_id',$lesson->test->id)
                 ->where('user_id',\Auth::id())
                 ->first();
 
         }
+        $all_results = TestsResult::all()->where('user_id',\Auth::id());
 
         $test_exists =FALSE;
         if($lesson->test && $lesson->test->questions){
             $test_exists =TRUE;
             $max_result = $lesson->test->questions->count();
-            $required = $test_result->test_results;
         }
 
-        $purchased_course = $lesson->course->students()->where('user_id',\Auth::id())->count()>0;
-        return view('test',compact('lesson','test_result','purchased_course','max_result','required','test_exists','grades','course'))->render();
+
+        $purchased_courses = Course::whereHas('students',function($query){
+            $query->where('id',\Auth::id());
+        })->with('lessons')
+            ->orderBy('id','desc')
+            ->get();
+        $purchased_course = $purchased_courses->where('id',$course_id);
+        return view('test',compact('lesson','test_result','all_results','purchased_course','max_result','test_exists','grades','course'))->render();
 
         }
 
@@ -77,7 +82,7 @@ class TestController extends Controller
             'test_results' => $test_score
         ]);
         $test_result->answers()->createMany($answers);
-        return redirect()->route('tests.show',  [$lesson->course_id,$lesson_slug])->with('message', 'Test score: ' . $test_score . ' '.$max_result);
+        return redirect()->route('tests.show',  [$lesson->course_id,$lesson_slug])->with('message', 'Test score: ' . $test_score . ' ');
 
     }
 

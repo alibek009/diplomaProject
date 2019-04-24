@@ -90,35 +90,29 @@
                 </div>
             </div>
 
+
             <div class="row">
-                <div class="col-xs-12 form-group">
-                    {!! Form::label('downloadable_files', trans('quickadmin.lessons.fields.downloadable-files').'', ['class' => 'control-label']) !!}
-                    {!! Form::file('downloadable_files[]', [
-                        'multiple',
-                        'class' => 'form-control file-upload',
-                        'data-url' => route('admin.media.upload'),
-                        'data-bucket' => 'downloadable_files',
-                        'data-filekey' => 'downloadable_files',
-                        ]) !!}
-                    <p class="help-block"></p>
-                    <div class="photo-block">
-                        <div class="progress-bar form-group">&nbsp;</div>
-                        <div class="files-list">
-                            @foreach($lesson->getMedia('downloadable_files') as $media)
-                                <p class="form-group">
-                                    <a href="{{ $media->getUrl() }}" target="_blank">{{ $media->name }} ({{ $media->size }} KB)</a>
-                                    <a href="#" class="btn btn-xs btn-danger remove-file">Remove</a>
-                                    <input type="hidden" name="downloadable_files_id[]" value="{{ $media->id }}">
-                                </p>
-                            @endforeach
+                {!! Form::open(['url' => 'admin/lessons/edit', 'method' => 'POST',
+                                       'enctype' => 'multipart/form-data', 'class' => 'form-horizontal']) !!}
+                    {{csrf_field()}}
+
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="video">VIDEO (mp4, mov, avi,
+                                    wmv)</label>
+                                <input type="file" class="form-control" id="video" name="video">
+                            </div>
                         </div>
-                    </div>
-                    @if($errors->has('downloadable_files'))
-                        <p class="help-block">
-                            {{ $errors->first('downloadable_files') }}
-                        </p>
-                    @endif
-                </div>
+                        <br>
+                        <div class="col-xs-6">
+                            <video controls style="width: 100%;">
+                                <source src="/{{$lesson->video}}">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+
+
+
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">

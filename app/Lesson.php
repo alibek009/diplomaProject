@@ -24,7 +24,7 @@ class Lesson extends Model implements HasMedia
 {
     use SoftDeletes, HasMediaTrait;
 
-    protected $fillable = ['title', 'slug', 'lesson_image', 'short_text', 'full_text', 'position', 'free_lesson', 'published', 'course_id'];
+    protected $fillable = ['title', 'slug', 'lesson_image', 'short_text', 'full_text', 'position', 'free_lesson', 'published', 'video','course_id'];
     protected $hidden = [];
     
     
@@ -36,6 +36,19 @@ class Lesson extends Model implements HasMedia
     public function setCourseIdAttribute($input)
     {
         $this->attributes['course_id'] = $input ? $input : null;
+    }
+
+
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($lessonPart) {
+            if($lessonPart->video){
+                if(file_exists($lessonPart->video)){
+                    unlink($lessonPart->video);
+                }
+            }
+        });
     }
 
     /**
@@ -60,6 +73,7 @@ class Lesson extends Model implements HasMedia
     {
         return $this->belongsToMany('App\User','lesson_student')->withTimestamps();
     }
+
 
     
 }

@@ -28,6 +28,21 @@
             @endforeach
 
 
+
+                                    @if($lesson->video)
+                                                <video controls style="width: 100%;">
+                                                    <source src="/{{$lesson->video}}">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                    @endif
+
+
+
+            @if($test_exists)
+                <h3><a href="{{route('tests.show',[$lesson->course_id,$lesson->slug])}}" style="text-decoration: none;">Check yourself via TEST</a></h3>
+            @endif
+
+
         @else
             <h2 style="color: red;">Please,<a href="{{ route('courses.show',[$lesson->course->slug])}}">go back </a> and buy the course</h2>
         @endif
@@ -35,9 +50,7 @@
 
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-        @if($test_exists)
-        <h3><a href="{{route('tests.show',[$lesson->course_id,$lesson->slug])}}" style="text-decoration: none;">Check yourself via TEST</a></h3>
-    @endif
+
 
 
 

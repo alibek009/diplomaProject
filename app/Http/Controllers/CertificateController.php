@@ -19,16 +19,16 @@ class CertificateController extends Controller
 
         return view('certificate',compact('course','grades'));
     }
-    public function pdf(){
-
+    public function pdf($course_id){
+        $course = Course::where('id',$course_id)->with('publishedLessons')->firstOrFail();
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($this->convert__data_to_html())->setPaper(array(0,0,800,1100),'landscape')->setOptions(['isRemoteEnabled' => true,'dpi' => 150, 'defaultFont' => 'Comic Sans MS']);
+        $pdf->loadHTML($this->convert__data_to_html($course))->setPaper(array(0,0,800,1100),'landscape')->setOptions(['isRemoteEnabled' => true,'dpi' => 150, 'defaultFont' => 'Comic Sans MS']);
 
         return $pdf->stream('certificate.pdf');
     }
 
-    function convert__data_to_html(){
-
+    function convert__data_to_html($course){
+        $teacher_name = $course->teachers()->get();
         $output = '<br><br><br>
                 <h1 style="text-align: center; font-size:4em;"  > Certificate of Completion </h1>
                 <br>
@@ -36,9 +36,11 @@ class CertificateController extends Controller
                 <br>
                 <h2 style="text-align: center; font-size:4em;"  > ' .  \Auth::user()->name  .' '. \Auth::user()->surname . '</h2>
                 <br>
-                <h2 style="text-align: center;font-size: 3em;">Course : '.'</h2>
-                <br>
+                <h2 style="text-align: center;font-size: 3em;">Course : '.$course->title.'</h2>
+                <br> 
                 <img src="https://images-eu.ssl-images-amazon.com/images/I/21E7kl6XtNL._AC_SS350_.jpg" alt="" style="margin-left: 1400px;">
+                <img src="https://previews.123rf.com/images/nalinn/nalinn1508/nalinn150800026/44272485-red-grunge-approved-rubber-stamp-isolated-on-white-background.jpg" alt="" style="margin-right:400px; margin-top:-300 px;;width: 200px;height: 200px;">
+                
                 ';
 
         return $output;
