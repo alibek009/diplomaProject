@@ -17,4 +17,6 @@ class LessonController extends Controller
         $lesson = Lesson::findOrFail($id);
         return response()->json($lesson);
     }
+
+
 }

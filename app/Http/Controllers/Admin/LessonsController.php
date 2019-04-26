@@ -83,6 +83,7 @@ class LessonsController extends Controller
             'lesson_image' => 'file|mimes:jpg,jpeg,png',
             'slug' => 'required',
             'video' => 'file|mimes:mp4,mov,avi,wmv',
+            'presentation' => 'file|mimes:pptx,ppt',
             'full_text' => 'required',
         ];
         $validator = Validator::make($data, $rules);
@@ -97,6 +98,7 @@ class LessonsController extends Controller
                 $videoFullPath = $video->move('assets/files/lessons/videos', $video_new_name);
                 $lessonPart->video = $videoFullPath;
             }
+
             $lessonPart->save();
             Session::flash('success', ['title' => trans('messages.insert'), 'body' => trans('messages.insert_success')]);
 

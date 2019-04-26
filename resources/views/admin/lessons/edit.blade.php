@@ -110,10 +110,9 @@
                                 Your browser does not support the video tag.
                             </video>
                         </div>
-
-
-
             </div>
+
+
             <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('free_lesson', trans('quickadmin.lessons.fields.free-lesson').'', ['class' => 'control-label']) !!}

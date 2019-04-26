@@ -97,7 +97,7 @@
                                 <br>
                                 @foreach($question->options as $option)
 
-                                    <input type="radio" name="questions[{{ $question->id }}]" value="{{ $option->id }}"/>
+                                    <input type="checkbox" name="questions[{{ $question->id }}]" value="{{ $option->id }}"/>
                                     {{ $option->option_text }}
                                     <br>
                                 @endforeach

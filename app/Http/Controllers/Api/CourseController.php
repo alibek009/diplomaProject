@@ -20,4 +20,14 @@ class CourseController extends Controller
         $course = Course::where('id',$course_id)->with('publishedLessons')->firstOrFail();
         return response()->json($course);
     }
+
+    public function purchasedCourses($user_id){
+
+        $purchased_courses = Course::whereHas('students',function($query) use ($user_id) {
+            $query->where('id',$user_id);
+        })->with('lessons')
+            ->orderBy('id','desc')
+            ->get();
+        return response()->json($purchased_courses);
+    }
 }
