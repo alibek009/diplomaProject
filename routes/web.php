@@ -2,6 +2,7 @@
 //course
 Route::get('/', 'HomeController@index' );
 Route::get('/search',['uses'=> 'CoursesController@search','as'=>'courses.search']);
+Route::get('/search/{subject}',['uses'=> 'CoursesController@searchBySubject','as'=>'courses.searchBySubject']);
 Route::get('course/{slug}',['uses'=> 'CoursesController@show','as'=>'courses.show']);
 Route::get('/grades',['uses'=> 'CoursesController@grades','as'=>'courses.grades']);
 Route::post('course/payment',['uses'=> 'CoursesController@payment','as'=>'courses.payment']);

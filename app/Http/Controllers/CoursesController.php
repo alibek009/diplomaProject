@@ -52,6 +52,14 @@ class CoursesController extends Controller
        return view('search',compact('courses','grades'));
     }
 
+    public function searchBySubject($subject){
+
+        $grades = Course::select('grade')->whereNotNull('grade')->groupBy('grade')->get();
+        $courses = Course::where('title','like','%'.$subject.'%')->get();
+        return view('searchBySubject',compact('courses','grades','subject'));
+    }
+
+
 
     public function payment(Request $request){
         $course = Course::findOrFail($request->get('course_id'));

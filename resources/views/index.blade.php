@@ -1,20 +1,41 @@
 @extends('layouts.home')
 @section('title', 'Okymin')
 @section('sidebar')
+<style>
+    @media screen and (max-width: 768px) { /* 400 px */
 
-    <div class="container" style="margin-top: 50px;">
-        <h4 class="my-2">Subjects</h4>
-        <div class="list-group">
-            <a href="#" class="list-group-item">Math </a>
-            <a href="#" class="list-group-item">Physics </a>
-            <a href="#" class="list-group-item">English </a>
-            <a href="#" class="list-group-item">Biology </a>
-            <a href="#" class="list-group-item">Chemistry </a>
-            <a href="#" class="list-group-item">Kazakh language </a>
-            <a href="#" class="list-group-item">Russian language </a>
-            <a href="#" class="list-group-item">Literature </a>
+        .visible-lg {
+            display: none;
+        }
 
+    }
+</style>
+
+    <div class="visible-lg"  style="margin-top: 50px;text-align: center;">
+
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#sidebar-wrapper"
+                aria-controls="sidebar-wrapper" aria-expanded="true" aria-label="Toggle navigation">
+
+            <h3>Subjects</h3>
+        </button>
+        <div class="list-group list-group-flush" id="sidebar-wrapper" >
+            <form action="/search" method="get">
+                <input type="submit" name="search" value="Math"  class="list-group-item list-group-item-action bg-light-blue-active"
+                       href="{{ route('courses.search',"math") }}">
+            <input type="submit" name="search" value="Physics" class="list-group-item list-group-item-action bg-light-blue-active"
+                   href="{{ route('courses.search',"physics") }}">
+            <input type="submit" name="search" value="English" class="list-group-item list-group-item-action bg-light-blue-active"
+                   href="{{ route('courses.search',"english") }}">
+            <input type="submit" name="search" value="Biology" class="list-group-item list-group-item-action bg-light-blue-active"
+                   href="{{ route('courses.search',"biology") }}">
+            <input type="submit" name="search" value="Kazakh" class="list-group-item list-group-item-action bg-light-blue-active"
+                       href="{{ route('courses.search',"kazakh") }}">
+            <input type="submit" name="search" value="Russian" class="list-group-item list-group-item-action bg-light-blue-active"
+                       href="{{ route('courses.search',"russian") }}">
+            </form>
         </div>
+
+
     </div>
 @endsection
 @section('main')
