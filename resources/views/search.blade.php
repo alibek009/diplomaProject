@@ -4,7 +4,7 @@
 
 
       <!-- /.col-lg-3 -->
-  <div class="container" style="margin-left: -100px;margin-top: 40px;">
+  <div class="container" style="margin-top: 40px;">
 
           <h3>Search results:</h3>
 

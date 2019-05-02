@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
       <!-- /.col-lg-3 -->
-  <div class="container" style="margin-left: -100px;margin-top: 40px;">
+  <div class="container" style="margin-top: 40px;">
 
           <h3>Courses for {{ $search }} grade:</h3>
 

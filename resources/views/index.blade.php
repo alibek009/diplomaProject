@@ -5,7 +5,15 @@
     <div class="container" style="margin-top: 50px;">
         <h4 class="my-2">Subjects</h4>
         <div class="list-group">
-            <input type="submit" name="grade" value="Math" class="dropdown-item" href="/">
+            <a href="#" class="list-group-item">Math </a>
+            <a href="#" class="list-group-item">Physics </a>
+            <a href="#" class="list-group-item">English </a>
+            <a href="#" class="list-group-item">Biology </a>
+            <a href="#" class="list-group-item">Chemistry </a>
+            <a href="#" class="list-group-item">Kazakh language </a>
+            <a href="#" class="list-group-item">Russian language </a>
+            <a href="#" class="list-group-item">Literature </a>
+
         </div>
     </div>
 @endsection
