@@ -59,6 +59,11 @@ class Lesson extends Model implements HasMedia
     {
         $this->attributes['position'] = $input ? $input : null;
     }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
+    }
     
     public function course()
     {

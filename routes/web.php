@@ -13,7 +13,9 @@ Route::post('ajaxRequest', 'AjaxController@ajaxRequestPost');
 
 //Lesson
 Route::get('lesson/{course_id}/{slug}',['uses'=> 'LessonsController@show','as'=>'lessons.show']);
-
+//Comments
+Route::post('/comment/store', 'CommentController@store')->name('comment.add');
+Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
 //Test
 Route::get('lesson/{course_id}/{slug}/test',['uses'=> 'TestController@show','as'=>'tests.show']);
 Route::post('lesson/{slug}/test',['uses'=> 'TestController@test','as'=>'tests.test']);
