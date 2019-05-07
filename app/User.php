@@ -35,7 +35,12 @@ class User extends Authenticatable
         if ($input)
             $this->attributes['password'] = app('hash')->needsRehash($input) ? Hash::make($input) : $input;
     }
-    
+
+    public function setNewApiToken()
+    {
+        $this->api_token = Str::uuid();
+        $this->save();
+    }
 
     /**
      * Set to null if empty

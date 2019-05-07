@@ -31,6 +31,8 @@ class AuthServiceProvider extends ServiceProvider
 
         $user = \Auth::user();
 
+
+
         
         // Auth gates for: User management
         Gate::define('user_management_access', function ($user) {

@@ -16,7 +16,9 @@ Route::get('courses',['uses'=> 'Api\CourseController@list','as'=>'course.index']
 Route::get('courses/{course_id}',['uses'=> 'Api\CourseController@detail','as'=>'course.detail']);
 Route::get('courses/{user_id}/purchasedcourses',['uses'=> 'Api\CourseController@purchasedCourses','as'=>'course.purchased']);
 
+Route::post('login','Api\PassportController@login');
+Route::post('register','Api\PassportController@refister');
 
-Route::middleware('auth:api')->get('/user',function(Request $request){
-    return $request->user();
+Route::group(['middleware'=>'auth:api'],function(){
+    Route::post('get-details','Api\PassportController@details');
 });
