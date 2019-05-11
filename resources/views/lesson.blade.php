@@ -106,7 +106,7 @@
 
                 type:'POST',
 
-                url:'/ajaxRequest',
+                url:'comment.add',
 
                 data:{comment_body:comment_body, post_id:post_id},
 

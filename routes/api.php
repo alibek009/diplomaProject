@@ -13,7 +13,7 @@ Route::get('lessons',['uses'=> 'Api\LessonController@list','as'=>'lesson.index']
 Route::get('lessons/{id}',['uses'=> 'Api\LessonController@detail','as'=>'lesson.detail']);
 
 
-Route::get('courses',['uses'=> 'Api\CourseController@list','as'=>'course.index']);
+Route::get('courses',['uses'=> 'Api\CourseController@list','as'=>'course.list']);
 Route::get('courses/{course_id}',['uses'=> 'Api\CourseController@detail','as'=>'course.detail']);
 Route::get('courses/{user_id}/purchasedcourses',['uses'=> 'Api\CourseController@purchasedCourses','as'=>'course.purchased']);
 

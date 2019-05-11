@@ -152,19 +152,7 @@ class LessonsController extends Controller
         if ($validator->fails()) {
             return redirect()->route('admin.lessons.index', ['course_id' => $request->course_id]);
         } else {
-            $lessonPart = LessonPart::findOrFail($id);
-            if ($lessonPart->video) {
-                if (file_exists($lessonPart->video)) {
-                    unlink($lessonPart->video);
-                }
-            }
-            if ($request->video) {
-                $video = $request->video;
-                $video_new_name = time() . $video->getClientOriginalName();
-                $videoFullPath = $video->move('assets/files/lessons/videos', $video_new_name);
-                $lessonPart->video = $videoFullPath;
-            }
-            $lessonPart->save();
+
             Session::flash('success', ['title' => trans('messages.update'), 'body' => trans('messages.update_success')]);
             return redirect()->route('admin.lessons.index', ['course_id' => $request->course_id]);
         }
