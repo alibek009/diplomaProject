@@ -15,7 +15,7 @@ Route::get('lessons/{id}',['uses'=> 'Api\LessonController@detail','as'=>'lesson.
 
 Route::get('courses',['uses'=> 'Api\CourseController@list','as'=>'course.list']);
 Route::get('courses/{course_id}',['uses'=> 'Api\CourseController@detail','as'=>'course.detail']);
-Route::get('courses/{user_id}/purchasedcourses',['uses'=> 'Api\CourseController@purchasedCourses','as'=>'course.purchased']);
+Route::get('courses/purchasedcourses/{user_id}',['uses'=> 'Api\CourseController@purchasedCourses','as'=>'course.purchased']);
 
 Route::post('login','Api\PassportController@login');
 Route::post('register','Api\PassportController@register');
