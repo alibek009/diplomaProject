@@ -12,6 +12,7 @@
     </div>
 @endsection
 @section('main')
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <style>
         .display-comment .display-comment {
             margin-left: 40px
@@ -70,7 +71,7 @@
                     <input type="hidden" name="post_id" value="{{ $lesson->id }}" />
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-warning" value="Add Comment" />
+                    <input type="submit" class="btn btn-warning btn-submit" value="Add Comment" />
                 </div>
             </form>
 
@@ -82,11 +83,44 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
 
-
-
-
-
-
-
     </div>
+    <script type="text/javascript">
+
+
+
+        $.ajaxSetup({
+
+            headers: {
+
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+            }
+
+        });
+        $(".btn-submit").click(function(e){
+            e.preventDefault();
+            var comment_body = $("input[name=comment_body]").val();
+
+            var post_id = $("input[name=post_id]").val();
+            $.ajax({
+
+                type:'POST',
+
+                url:'/ajaxRequest',
+
+                data:{comment_body:comment_body, post_id:post_id},
+
+                success:function(data){
+
+                    alert(data.success);
+
+                }
+
+            });
+
+
+
+        });
+
+    </script>
 @endsection

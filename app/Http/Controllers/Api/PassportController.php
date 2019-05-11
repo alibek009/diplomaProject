@@ -16,7 +16,7 @@ class PassportController extends Controller
         if(Auth::attempt(['email'=>request('email'),'password'=>request('password')])){
             $user = Auth::user();
             $success['token'] = $user->createToken('MyApp')->accessToken;
-            return response()->json(['success'=>$success],$this->successStatus);
+            return response()->json(['success'=>$user],$this->successStatus);
         }
         else{
 
@@ -30,7 +30,6 @@ class PassportController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required',
-            'c_password' => 'required|same:password',
         ]);
         if ($validator->fails()) {
             return response()->json(['success'=>!$validator->errors()], 401);
@@ -46,14 +45,15 @@ class PassportController extends Controller
             'email' => $input['email'],
             'name' => $input['name']
         ]);
-        $success['token'] =  $user->createToken('MyApp')-> accessToken;
+        /** $success['token'] =  $user->createToken('MyApp')-> accessToken;
         $success['name'] =  $user->name;
         $profile = Profile::create([
-            'user_id' => $user->id,
-            'avatar' => 'uploads/avatars/default_avatar.jpg',
-        ]);
-        return response()->json(['success'=>$success], $this-> successStatus);
+        'user_id' => $user->id,
+        'avatar' => 'uploads/avatars/default_avatar.jpg',
+        ]);*/
+        return response()->json(['success'=>true], $this-> successStatus);
     }
+
     /**
      * details api
      *

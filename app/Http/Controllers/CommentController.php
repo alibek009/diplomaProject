@@ -33,4 +33,15 @@ class CommentController extends Controller
         return back();
 
     }
+
+    public function storeJson(Request $request)
+    {
+        $comment = new Comment;
+        $comment->body = $request->get('comment_body');
+        $comment->user()->associate($request->user());
+        $post = Lesson::find($request->get('post_id'));
+        $post->comments()->save($comment);
+
+        return response()->json(['success'=>'Got Simple Ajax Request.']);
+    }
 }
