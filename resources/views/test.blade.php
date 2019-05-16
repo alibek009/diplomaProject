@@ -85,7 +85,23 @@
                         @endforeach
                     @else
 
+                        <div class="ques">
 
+                        @foreach($lesson->test->questions as $question)
+
+                                <b>{{ $loop->iteration }}. {{$question->question}}</b>
+                                <img src="{{ $question->question_image }}" alt="">
+                                <br>
+                                @foreach($question->options as $option)
+
+                                    <input type="checkbox" name="questions[{{ $question->id }}]" value="{{ $option->id }}"/>
+                                    {{ $option->option_text }}
+                                    <br>
+                                @endforeach
+
+
+                        @endforeach
+                        </div>
                         <input type="submit" value="Submit results"  class="btn btn-success btn-submit"/>
                 </form>
             @endif
