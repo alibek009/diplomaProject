@@ -56,25 +56,9 @@
                             <div class="alert alert-info">Your test score is 100 % </div>
                             <br>
                             @endif
-                        @foreach($lesson->test->questions as $question)
-
-                            <b>{{ $loop->iteration }}. {{$question->question}}</b>
-                            <img src="{{ $question->question_image }}" alt="">
-                            <br>
-                            @foreach($question->options as $option)
-                                @if($option->correct == 1)
-                                <input type="radio" name="questions[{{ $question->id }}]" value="{{ $option->id }}" />
-                                    <p style="background-color: green; "><b>{{ $option->option_text }}</b></p>
-
-                                    @else
-                                    <input type="radio" name="questions[{{ $question->id }}]" value="{{ $option->id }}"/>
-                                     {{ $option->option_text }}
-                                    <br>
-                                @endif
-                            @endforeach
 
 
-                        @endforeach
+
 
 
 
