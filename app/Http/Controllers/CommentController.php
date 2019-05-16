@@ -17,8 +17,9 @@ class CommentController extends Controller
         $post = Lesson::find($request->get('post_id'));
         $post->comments()->save($comment);
 
-        return response()->json(['success'=>'Got Simple Ajax Request.']);
+        return back();
     }
+
 
     public function replyStore(Request $request)
     {
@@ -27,11 +28,8 @@ class CommentController extends Controller
         $reply->user()->associate($request->user());
         $reply->parent_id = $request->get('comment_id');
         $post = Lesson::find($request->get('post_id'));
-
         $post->comments()->save($reply);
-
         return back();
-
     }
 
 

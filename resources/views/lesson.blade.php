@@ -58,6 +58,7 @@
                 <p><a href="{{ route('lessons.show',[$next_lesson->course_id,$next_lesson->slug]) }}" style="text-decoration: none;">  {{$next_lesson->title}} >> </a></p>
 
             @endif
+            @if(\Auth::check())
             <hr />
             <h4>Comments</h4>
             @include('partials._comment_replies', ['comments' => $lesson->comments, 'post_id' => $lesson->id])
@@ -74,7 +75,7 @@
                     <input type="submit" class="btn btn-warning btn-submit" value="Add Comment" />
                 </div>
             </form>
-
+                @endif
         @else
             <h2 style="color: red;">Please,<a href="{{ route('courses.show',[$lesson->course->slug])}}">go back </a> and buy the course</h2>
         @endif
@@ -84,43 +85,4 @@
 
 
     </div>
-    <script type="text/javascript">
-
-
-
-        $.ajaxSetup({
-
-            headers: {
-
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-
-            }
-
-        });
-        $(".btn-submit").click(function(e){
-            e.preventDefault();
-            var comment_body = $("input[name=comment_body]").val();
-
-            var post_id = $("input[name=post_id]").val();
-            $.ajax({
-
-                type:'POST',
-
-                url:'comment.add',
-
-                data:{comment_body:comment_body, post_id:post_id},
-
-                success:function(data){
-
-                    alert(data.success);
-
-                }
-
-            });
-
-
-
-        });
-
-    </script>
 @endsection
