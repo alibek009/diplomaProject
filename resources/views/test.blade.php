@@ -58,7 +58,7 @@
                             @endif
                         @foreach($lesson->test->questions as $question)
 
-                            <b>{{ $loop->iteration }}. {{$question->question}}</b>
+                            <h4><b>{{ $loop->iteration }}. {{$question->question}}</b></h4>
                             <br>
                             @foreach($question->options as $option)
                                 @if($option->correct == 1)

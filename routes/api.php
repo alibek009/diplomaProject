@@ -9,6 +9,8 @@ Route::get('quiz/options/{question_id}',['uses'=> 'Api\QuizController@options','
 Route::get('user/{id}',['uses'=> 'Api\UserController@detail','as'=>'user.detail']);
 
 
+Route::post('feedback','Api\FeedbackController@send');
+
 Route::get('lessons',['uses'=> 'Api\LessonController@list','as'=>'lesson.index']);
 Route::get('lessons/{id}',['uses'=> 'Api\LessonController@detail','as'=>'lesson.detail']);
 

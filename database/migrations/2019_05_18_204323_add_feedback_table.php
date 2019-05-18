@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddApiTokenFieldToUsersTable extends Migration
+class AddFeedbackTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class AddApiTokenFieldToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-         //   $table->string('api_token', 36)->unique();
+        //
+        Schema::create('feedback', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('email');
+            $table->text('message');
+            $table->timestamps();
         });
     }
 
@@ -26,9 +29,7 @@ class AddApiTokenFieldToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-           // $table->dropColumn('api_token');
-        });
+        //
+        Schema::dropIfExists('feedback');
     }
 }
