@@ -32,7 +32,7 @@
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
-    <a class="navbar-brand" href="/">Okymin</a>
+    <a class="navbar-brand" href="/">Оқимын</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
 
@@ -43,7 +43,7 @@
 
 
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Grades</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Сыныптар</a>
                 <div class="dropdown-menu">
                   <form action="/grades"  method="get" class="form-inline my-2 my-lg-0" >
                   @foreach($grades as $grade )
@@ -106,7 +106,7 @@
       <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <li class="nav-item active">
-      <a href="#log" rel="modal:open" class="nav-link" id="logBut" >Login</a>
+      <a href="#log" rel="modal:open" class="nav-link" id="logBut" >Кіру</a>
             <div id="log" class="modal" style="height: 200px;">
 
 
@@ -116,7 +116,7 @@
                 <br>
                 <input class="dropdown-item" type="password" name="password" placeholder="Password" style="border: 2px ;border-radius: 4px;background-color: #c7d9ff; height: 35px;"/>
                 <br>
-                <input class="dropdown-item" type="submit" value="Login" class="btn btn-info" style=" padding-top: 3px; height: 35px; width:100px;text-align: center;border-radius: 50px; text-align: center;background-color: #34bbe2;margin-left: 170px;">
+                <input class="dropdown-item" type="submit" value="Кіру" class="btn btn-info" style=" padding-top: 3px; height: 35px; width:100px;text-align: center;border-radius: 50px; text-align: center;background-color: #34bbe2;margin-left: 170px;">
 
 
               </form>
@@ -130,7 +130,7 @@
                 </script>
         <li class="nav-item active">
       <a href="{{ route('auth.register') }}?redirect_url={{ route('courses.show',"math-7-grade") }}"
-         class="nav-link"> Register </a>
+         class="nav-link"> Тіркелу </a>
         </li>
 
 

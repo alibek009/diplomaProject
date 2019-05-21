@@ -16,21 +16,21 @@
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#sidebar-wrapper"
                 aria-controls="sidebar-wrapper" aria-expanded="true" aria-label="Toggle navigation">
 
-            <h3>Subjects</h3>
+            <h3>Пәндер</h3>
         </button>
         <div class="list-group list-group-flush" id="sidebar-wrapper" >
             <form action="/search" method="get">
-                <input type="submit" name="search" value="Math"  class="list-group-item list-group-item-action bg-light-blue-active"
+                <input type="submit" name="search" value="Математика"  class="list-group-item list-group-item-action bg-light-blue-active"
                        href="{{ route('courses.search',"math") }}">
-            <input type="submit" name="search" value="Physics" class="list-group-item list-group-item-action bg-light-blue-active"
+            <input type="submit" name="search" value="Физика" class="list-group-item list-group-item-action bg-light-blue-active"
                    href="{{ route('courses.search',"physics") }}">
-            <input type="submit" name="search" value="English" class="list-group-item list-group-item-action bg-light-blue-active"
+            <input type="submit" name="search" value="Ағылшын тілі" class="list-group-item list-group-item-action bg-light-blue-active"
                    href="{{ route('courses.search',"english") }}">
-            <input type="submit" name="search" value="Biology" class="list-group-item list-group-item-action bg-light-blue-active"
+            <input type="submit" name="search" value="Биология" class="list-group-item list-group-item-action bg-light-blue-active"
                    href="{{ route('courses.search',"biology") }}">
-            <input type="submit" name="search" value="Kazakh" class="list-group-item list-group-item-action bg-light-blue-active"
+            <input type="submit" name="search" value="Қазақ тілі" class="list-group-item list-group-item-action bg-light-blue-active"
                        href="{{ route('courses.search',"kazakh") }}">
-            <input type="submit" name="search" value="Russian" class="list-group-item list-group-item-action bg-light-blue-active"
+            <input type="submit" name="search" value="Орыс тілі" class="list-group-item list-group-item-action bg-light-blue-active"
                        href="{{ route('courses.search',"russian") }}">
             </form>
         </div>
@@ -48,7 +48,7 @@
 
         @if(!is_null($purchased_courses))
 
-          <h3>My courses</h3>
+          <h3>Менің сабақтарым</h3>
           <div class="row" id="dat">
 
             @foreach($purchased_courses as $course)
@@ -81,7 +81,7 @@
         @endif
 
 
-        <h3>All courses</h3>
+        <h3>Барлық сабақтар</h3>
         <div class="row" id="table_data">
           @foreach($courses as $course)
 
