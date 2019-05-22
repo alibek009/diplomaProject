@@ -34,19 +34,22 @@ body{
 font-family: DejaVu Sans;
 }
 </style>
-<body>
-<br>
-                <h1 style="text-align: center; font-size:4em;"  > Бітіру сертификаты </h1>
-                
-                <br>
-                <h2 style="text-align: center; font-size:4em;"  > ' .  \Auth::user()->name  .' '. \Auth::user()->surname . '</h2>
-                <br>
-                <h2 style="text-align: center;font-size: 3em;"> оқушысына берілді</h2>
-                <br>
-                <h2 style="text-align: center;font-size: 3em;">Курс : '.$course->title.'</h2>
-                <br> 
-                <img src="https://images-eu.ssl-images-amazon.com/images/I/21E7kl6XtNL._AC_SS350_.jpg" alt="" style="margin-left: 1400px; margin-top: -145px;">
-                </body>
+
+<div style="width:2100px; height:1200px; padding:20px; text-align:center; border: 10px solid #787878">
+<div style="width:2050px; height:1150px; padding:20px; text-align:center; border: 5px solid #787878">
+<br><br><br><br><br><br>
+       <span style="font-size:50px; font-weight:bold">Бітіру сертификаты</span>
+       <br><br>
+       
+       <span style="font-size:30px"><b>' . \Auth::user()->name.' '. \Auth::user()->surname .'</b></span><br/><br/>
+       <span style="font-size:25px"><i>оқушысына</i></span>
+       <br><br>
+       <span style="font-size:30px"> <b>'.$course->title.'</b> курсын</span> <br/><br/>
+       <span style="font-size:25px"><i>бітіргені үшін  берілді</i></span> <br/><br/>
+       <span style="font-size:25px"><i>Берілген күн:</i></span><br>
+      '.date('d-m-Y', strtotime($course->updated_at)) .'
+</div>
+</div>
                 ';
 
         return $output;
