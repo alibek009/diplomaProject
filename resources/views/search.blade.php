@@ -6,7 +6,7 @@
       <!-- /.col-lg-3 -->
   <div class="container" style="margin-top: 40px;">
 
-          <h3>Search results:</h3>
+          <h3>Нәтижелер:</h3>
 
 
           @foreach($courses as $course)

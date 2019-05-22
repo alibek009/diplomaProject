@@ -6,7 +6,7 @@
       <!-- /.col-lg-3 -->
   <div class="container" style="margin-top: 40px;">
 
-          <h3>{{$subject}} courses: </h3>
+          <h3>{{$subject}} сабақтары: </h3>
 
 
           @foreach($courses as $course)

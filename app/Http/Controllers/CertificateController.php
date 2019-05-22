@@ -29,18 +29,24 @@ class CertificateController extends Controller
 
     function convert__data_to_html($course){
         $teacher_name = $course->teachers()->get();
-        $output = '<br><br><br>
-                <h1 style="text-align: center; font-size:4em;"  > Certificate of Completion </h1>
-                <br>
-                <h2 style="text-align: center;font-size: 3em;">to</h2>
+        $output = '<style>
+body{
+font-family: DejaVu Sans;
+}
+</style>
+<body>
+<br>
+                <h1 style="text-align: center; font-size:4em;"  > Бітіру сертификаты </h1>
+                
                 <br>
                 <h2 style="text-align: center; font-size:4em;"  > ' .  \Auth::user()->name  .' '. \Auth::user()->surname . '</h2>
                 <br>
-                <h2 style="text-align: center;font-size: 3em;">Course : '.$course->title.'</h2>
+                <h2 style="text-align: center;font-size: 3em;"> оқушысына берілді</h2>
+                <br>
+                <h2 style="text-align: center;font-size: 3em;">Курс : '.$course->title.'</h2>
                 <br> 
-                <img src="https://images-eu.ssl-images-amazon.com/images/I/21E7kl6XtNL._AC_SS350_.jpg" alt="" style="margin-left: 1400px;">
-                <img src="https://previews.123rf.com/images/nalinn/nalinn1508/nalinn150800026/44272485-red-grunge-approved-rubber-stamp-isolated-on-white-background.jpg" alt="" style="margin-right:400px; margin-top:-300 px;;width: 200px;height: 200px;">
-                
+                <img src="https://images-eu.ssl-images-amazon.com/images/I/21E7kl6XtNL._AC_SS350_.jpg" alt="" style="margin-left: 1400px; margin-top: -145px;">
+                </body>
                 ';
 
         return $output;

@@ -10,7 +10,7 @@
       <!-- /.col-lg-3 -->
   <div class="container" style="margin-top: 40px;">
 
-          <h3>Courses for {{ $search }} grade:</h3>
+          <h3> {{ $search }} сыныптын сабақтары:</h3>
 
 
           @foreach($courses as $course)

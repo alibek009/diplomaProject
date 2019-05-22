@@ -1,9 +1,9 @@
 @inject('request', 'Illuminate\Http\Request')
 <!-- Left side column. contains the sidebar -->
-<aside class="main-sidebar">
+<aside class="main-sidebar" style=" background-image: linear-gradient(+90deg, #4a89dc, #034a8e);">
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-        <ul class="sidebar-menu">
+    <section class="sidebar" >
+        <ul class="sidebar-menu" >
 
              
 

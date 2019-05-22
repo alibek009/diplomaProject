@@ -45,7 +45,7 @@
 
 
             @if($test_exists)
-                <h3><a href="{{route('tests.show',[$lesson->course_id,$lesson->slug])}}" style="text-decoration: none;">Check yourself via TEST</a></h3>
+                <h3><a href="{{route('tests.show',[$lesson->course_id,$lesson->slug])}}" style="text-decoration: none;">Өзіңді сына</a></h3>
             @endif
 
             <hr />
@@ -60,11 +60,11 @@
             @endif
             @if(\Auth::check())
             <hr />
-            <h4>Comments</h4>
+            <h4>Сурақ және жауап</h4>
             @include('partials._comment_replies', ['comments' => $lesson->comments, 'post_id' => $lesson->id])
 
             <hr />
-            <h4>Add comment</h4>
+            <h4>Сурақ қою</h4>
             <form method="post" action="{{ route('comment.add') }}">
                 @csrf
                 <div class="form-group">
@@ -72,12 +72,12 @@
                     <input type="hidden" name="post_id" value="{{ $lesson->id }}" />
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-warning btn-submit" value="Add Comment" />
+                    <input type="submit" class="btn btn-warning btn-submit" value="Сурау" />
                 </div>
             </form>
                 @endif
         @else
-            <h2 style="color: red;">Please,<a href="{{ route('courses.show',[$lesson->course->slug])}}">go back </a> and buy the course</h2>
+            <h2 style="color: red;">Сабақты көру үшін <a href="{{ route('courses.show',[$lesson->course->slug])}}">сатып алыңыз </a> </h2>
         @endif
 
 

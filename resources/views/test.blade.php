@@ -2,7 +2,7 @@
 @section('title', $lesson-> title )
 @section('sidebar')
     <div class="container" style="margin-top: 50px;">
-        <h4 class="my-2">Your progress</h4>
+        <h4 class="my-2">Тапсырған тесттер</h4>
         <div class="list-group">
             @if (!is_null($test_result))
                 @foreach ($lesson->course->publishedLessons as $list_lesson)
@@ -45,15 +45,15 @@
                     {{ csrf_field() }}
 
 
-                    <h3>Test: {{ $lesson->test->title }}</h3>
+                    <h3>Тест: {{ $lesson->test->title }}</h3>
 
                     @if (!is_null($test_result))
                         <br>
                         @if( $test_result->test_results < $max_result)
-                        <div class="alert alert-info">Your test score is {{ round($test_result->test_results/$max_result * 100,2) }} % </div>
+                        <div class="alert alert-info">Сіздің нәтижеңіз: {{ round($test_result->test_results/$max_result * 100,2) }} % </div>
                         <br>
                         @else
-                            <div class="alert alert-info">Your test score is 100 % </div>
+                            <div class="alert alert-info">Сіздің нәтижеңіз: 100 % </div>
                             <br>
                             @endif
                         @foreach($lesson->test->questions as $question)
@@ -83,7 +83,7 @@
                                 @foreach($purchased_course as $c)
                             @if($test_result->test_results >= ($max_result/2) and (\Auth::user()->lessons()->where('course_id',$c->id)->count() == $c->lessons->count()))
 
-                                <h2><a href="{{ route('certificate.pdf',[$lesson->course_id])}}">Certificate</a>
+                                <h2><a href="{{ route('certificate.pdf',[$lesson->course_id])}}">Сертификат алу</a>
 
                                 </h2>
                                 @endif
@@ -115,7 +115,7 @@
 
 
         <br>
-        <p><a href="{{ route('lessons.show',[$lesson->course_id,$lesson->slug]) }}" style="text-decoration: none;"> Back to the lesson <b>( {{$lesson->title}})</b>  </a></p>
+        <p><a href="{{ route('lessons.show',[$lesson->course_id,$lesson->slug]) }}" style="text-decoration: none;"> Артқа қайту <b>( {{$lesson->title}})</b>  </a></p>
 
 
 

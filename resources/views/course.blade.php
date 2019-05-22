@@ -7,22 +7,22 @@
             <p>{{$course-> description}}</p>
 
             @if ( \Auth::check() && $course->students()->where('user_id',\Auth::id())->count()>0)
-                Rating: {{ $course->rating }} out of 5
+                Рейтинг: {{ $course->rating }} / 5
 
                 <hr>
-                <b>Rate the course</b>
+                <b>Сабақты бағалаңыз</b>
 
                 <br />
                 <form action="{{ route('courses.rating',[$course->id]) }}" method="post">
                     {{csrf_field()}}
                     <select name="rating" >
-                        <option value="1">1 - Awful</option>
-                        <option value="2">2 - Bad</option>
-                        <option value="3">3 - Not so good</option>
-                        <option value="4" selected>4 - Good</option>
-                        <option value="5">5 - Awesome</option>
+                        <option value="1">1 - Өте жаман</option>
+                        <option value="2">2 - Жаман</option>
+                        <option value="3">3 - Ойдағыдай емес</option>
+                        <option value="4" selected>4 - Жақсы</option>
+                        <option value="5">5 - Тамаша</option>
                     </select>
-                    <input type="submit" value="Rate" class="btn btn-success">
+                    <input type="submit" value="Бағалау" class="btn btn-success">
                 </form>
                 <hr>
 
@@ -40,7 +40,7 @@
                                 data-amount="{{ $course->price * 100 }}"
                                 data-currency="kzt"
                                 data-name="Okymin"
-                                data-label="Buy course ({{ $course->price }}KZT)"
+                                data-label="Сатып алу ({{ $course->price }}KZT)"
                                 data-description ="Course {{ $course->title }}"
                                 data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                                 data-locale="auto"
@@ -53,7 +53,7 @@
                 @endif
             @else
                 <a href="{{ route('auth.register') }}?redirect_url={{ route('courses.show',[$course->slug]) }}"
-                   class="btn btn-primary"> Buy course ({{ $course->price }}KZT)</a>
+                   class="btn btn-primary"> Сатып алу ({{ $course->price }} KZT)</a>
                 @endif
 
 

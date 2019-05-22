@@ -12,7 +12,7 @@
     Okimyn
   </title>
 
-  <link rel="icon" href="https://cdn1.iconfinder.com/data/icons/color-bold-style/21/34-128.png"  type = "image/x-icon" />
+  <link rel="icon" href="Okimyn_kz.png"  type = "image/x-icon" />
 
   <!-- Bootstrap core CSS -->
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -32,7 +32,7 @@
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
-    <a class="navbar-brand" href="/">Оқимын</a>
+    <a class="navbar-brand" href="/">Okymin</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
 
@@ -89,7 +89,7 @@
                           <a class="dropdown-item" href="/admin/home" style="text-align:center; color:black;" >{{ Auth::user()->name }}</a>
                         @endif
 
-                        <input type="submit" value="Logout" class="dropdown-item" style=" text-align: center; color:black;">
+                        <input type="submit" value="Шығу" class="dropdown-item" style=" text-align: center; color:black;">
 
                       </form>
                     </div>

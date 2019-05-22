@@ -11,7 +11,7 @@
                 <input type="hidden" name="comment_id" value="{{ $comment->id }}" />
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-warning" value="Reply" />
+                <input type="submit" class="btn btn-warning" value="Жауап беру" />
             </div>
         </form>
         @include('partials._comment_replies', ['comments' => $comment->replies])
