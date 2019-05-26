@@ -64,8 +64,8 @@
                     <p class="card-text">{{ $course -> description }}</p>
                   </div>
                   <div class="card-footer">
-                    <p>Progress: {{ Auth::user()->lessons()->where('course_id',$course->id)->count() }}
-                      of {{ $course->lessons->count() }} lessons</p>
+                    <p>Прогресс: {{ Auth::user()->lessons()->where('course_id',$course->id)->count() }}
+                       сабақтан оқылды: {{ $course->lessons->count() }}</p>
 
                       <div class="progress">
                           <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{round(( Auth::user()->lessons()->where('course_id',$course->id)->count()) / ($course->lessons->count())*100) }}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
@@ -97,7 +97,7 @@
                 <p class="card-text">{{ $course -> description }}</p>
               </div>
               <div class="card-footer">
-                  <p class="text-right"> Students: {{ $course->students()->count() }} </p>
+                  <p class="text-right"> Оқушылар: {{ $course->students()->count() }} </p>
                 <div class="the-icons" style="margin-top: -40px;">
 
                   @for($star=1;$star<=5;$star++)
